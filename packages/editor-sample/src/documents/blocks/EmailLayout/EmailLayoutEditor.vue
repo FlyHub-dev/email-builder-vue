@@ -3,7 +3,7 @@
     :style="{
       backgroundColor: backdropColor ?? '#F5F5F5',
       color: textColor ?? '#262626',
-      fontFamily: getFontFamily(fontFamily),
+      fontFamily: safeGetFontFamily(fontFamily),
       fontSize: '16px',
       fontWeight: '400',
       letterSpacing: '0.15008px',
@@ -22,7 +22,7 @@
         margin: '0 auto',
         maxWidth: '600px',
         backgroundColor: canvasColor ?? '#FFFFFF',
-        borderRadius: borderRadius ?? undefined,
+        borderRadius: borderRadius ? `${borderRadius}px` : undefined,
         border: (() => {
           const v = borderColor;
           if (!v) return undefined;
@@ -50,13 +50,15 @@
 </template>
 
 <script setup lang="ts">
-import { getFontFamily } from '@flyhub/email-core';
+import { getFontFamily, FONT_FAMILY_NAMES } from '@flyhub/email-core';
 import { currentBlockIdSymbol } from '../../editor/EditorBlock.vue';
-import type { TEditorBlock } from '@flyhub/email-core';
+import type { TEditorBlock } from '../../editor/core';
 import EditorChildrenIds from '../helpers/EditorChildrenIds.vue';
 import { inject } from 'vue';
 
 import { useInspectorDrawer } from '../../editor/editor.store';
+
+type FontFamilyName = typeof FONT_FAMILY_NAMES[number];
 
 type Props = {
     backdropColor?: string | null;
@@ -102,4 +104,12 @@ function handleChangeChildren(args: { block: TEditorBlock, blockId: string, chil
 
   inspectorDrawer.setSelectedBlockId(blockId);
 }
+
+function safeGetFontFamily (fontFamily: string | null | undefined) {
+  if (!fontFamily) return undefined;
+
+  const isValidFont = (FONT_FAMILY_NAMES as readonly string[]).includes(fontFamily);
+  return isValidFont ? getFontFamily(fontFamily as FontFamilyName) : undefined;
+};
+
 </script>
