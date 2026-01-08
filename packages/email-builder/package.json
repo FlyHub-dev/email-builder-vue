@@ -1,6 +1,6 @@
 {
   "name": "@flyhub/email-builder",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "build": "npm run build:lib && npm run build:types",
     "build:lib": "vite build",

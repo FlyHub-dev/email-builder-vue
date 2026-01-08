@@ -102,5 +102,4 @@ function handleChangeChildren(args: { block: TEditorBlock, blockId: string, chil
 
   inspectorDrawer.setSelectedBlockId(blockId);
 }
-
 </script>
