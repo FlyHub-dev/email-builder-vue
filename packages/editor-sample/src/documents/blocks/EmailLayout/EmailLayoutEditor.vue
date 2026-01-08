@@ -22,7 +22,7 @@
         margin: '0 auto',
         maxWidth: '600px',
         backgroundColor: canvasColor ?? '#FFFFFF',
-        borderRadius: borderRadius ?? undefined,
+        borderRadius: borderRadius ? `${borderRadius}px` : undefined,
         border: (() => {
           const v = borderColor;
           if (!v) return undefined;
@@ -50,9 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import { getFontFamily } from '@flyhub/email-core';
+import { getFontFamily, FONT_FAMILY_NAMES } from '@flyhub/email-core';
 import { currentBlockIdSymbol } from '../../editor/EditorBlock.vue';
-import type { TEditorBlock } from '@flyhub/email-core';
+import type { TEditorBlock } from '../../editor/core';
 import EditorChildrenIds from '../helpers/EditorChildrenIds.vue';
 import { inject } from 'vue';
 
@@ -64,7 +64,7 @@ type Props = {
     borderRadius?: number | null;
     canvasColor?: string | null;
     textColor?: string | null;
-    fontFamily?: string | null;
+    fontFamily?: typeof FONT_FAMILY_NAMES[number] | null;
     childrenIds?: string[] | null;
 }
 

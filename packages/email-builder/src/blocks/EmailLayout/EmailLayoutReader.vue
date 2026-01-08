@@ -81,7 +81,7 @@ const tableStyle = computed(() => ({
   margin: '0 auto',
   maxWidth: '600px',
   backgroundColor: props.canvasColor ?? '#FFFFFF',
-  borderRadius: props.borderRadius ?? undefined,
+  borderRadius: props.borderRadius ? `${props.borderRadius}px` : undefined,
   border: getBorder(props),
 }));
 
