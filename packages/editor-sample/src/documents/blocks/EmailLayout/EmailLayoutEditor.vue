@@ -3,7 +3,7 @@
     :style="{
       backgroundColor: backdropColor ?? '#F5F5F5',
       color: textColor ?? '#262626',
-      fontFamily: safeGetFontFamily(fontFamily),
+      fontFamily: getFontFamily(fontFamily),
       fontSize: '16px',
       fontWeight: '400',
       letterSpacing: '0.15008px',
@@ -58,15 +58,13 @@ import { inject } from 'vue';
 
 import { useInspectorDrawer } from '../../editor/editor.store';
 
-type FontFamilyName = typeof FONT_FAMILY_NAMES[number];
-
 type Props = {
     backdropColor?: string | null;
     borderColor?: string | null;
     borderRadius?: number | null;
     canvasColor?: string | null;
     textColor?: string | null;
-    fontFamily?: string | null;
+    fontFamily?: typeof FONT_FAMILY_NAMES[number] | null;
     childrenIds?: string[] | null;
 }
 
@@ -104,12 +102,5 @@ function handleChangeChildren(args: { block: TEditorBlock, blockId: string, chil
 
   inspectorDrawer.setSelectedBlockId(blockId);
 }
-
-function safeGetFontFamily (fontFamily: string | null | undefined) {
-  if (!fontFamily) return undefined;
-
-  const isValidFont = (FONT_FAMILY_NAMES as readonly string[]).includes(fontFamily);
-  return isValidFont ? getFontFamily(fontFamily as FontFamilyName) : undefined;
-};
 
 </script>
